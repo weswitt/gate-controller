@@ -1,0 +1,119 @@
+esp32:
+  board: esp32doit-devkit-v1
+
+esphome:
+  name: **your-name**
+  friendly_name: **your-friendly-name**
+
+api:
+
+logger:
+  baud_rate: 0
+#  baud_rate: 115200
+#  level: VERBOSE
+
+ota:
+
+web_server:
+  port: 80
+
+wifi:
+  ssid: **your-ssid**
+  password: **your-password**
+  manual_ip:
+    static_ip: **your-ip**
+    gateway: **your-gateway**
+    subnet: **your-subnet**
+
+button:
+  - platform: restart
+    name: Restart
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      id: ip_address
+      icon: mdi:ip-network
+    ssid:
+      name: SSID
+      id: ssid
+      icon: mdi:wifi
+
+sensor:
+  - platform: uptime
+    name: Uptime
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: wifi_signal_strength
+    update_interval: 60s
+    icon: mdi:wifi-strength-1
+
+light:
+  - platform: status_led
+    id: opened_led
+    pin: GPIO17
+    restore_mode: ALWAYS_OFF
+  - platform: status_led
+    id: closed_led
+    pin: GPIO18
+    restore_mode: ALWAYS_OFF
+
+binary_sensor:
+  - platform: gpio
+    filters:
+      - invert:
+    pin:
+      number: GPIO13
+      mode:
+        input: true
+        pullup: true
+    name: "Closed Sensor"
+    id: closed_sensor
+    icon: mdi:gate
+    on_press:
+      then:
+        - light.turn_on: closed_led
+        - light.turn_off: opened_led
+  - platform: gpio
+    filters:
+      - invert:
+    pin:
+      number: GPIO16
+      mode:
+        input: true
+        pullup: true
+    name: "Open Sensor"
+    id: open_sensor
+    icon: mdi:gate-open
+    on_press:
+      then:
+        - light.turn_on: opened_led
+        - light.turn_off: closed_led
+
+switch:
+  - platform: gpio
+    pin: GPIO25
+    name: "Open Switch"
+    id: open_switch
+    icon: mdi:gate
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: open_switch
+  - platform: gpio
+    pin: GPIO26
+    name: "Close Switch"
+    id: close_switch
+    icon: mdi:gate
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: close_switch
+  - platform: gpio
+    pin: GPIO27
+    name: "Exit Switch"
+    id: exit_switch
+    icon: mdi:gate
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: exit_switch
+
