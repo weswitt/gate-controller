@@ -1,6 +1,6 @@
 This project is a PCB design for controlling a Liftmaster gate operator from Home Assistant. 
 
-The PCB design was done in KiCad 8.0, which is an open source electronic design tool. This project includes all of the KiCad project files so that you can modify the PCB if needed. I've also included a GERBER.ZIP file that can ne used to simply have the PCB printed by someplace like JLPCB.
+The PCB design was done in KiCad 8.0, which is an open source electronic design tool. This project includes all of the KiCad project files so that you can modify the PCB if needed. I've also included a GERBER.ZIP file that can be used to simply have the PCB printed by someplace like JLPCB.
 
 This project includes a bill of materials with URLs for all the parts necessary to build the board. I've sourced the part from DigiKey and Amazon.
 
